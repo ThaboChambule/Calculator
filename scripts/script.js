@@ -2,36 +2,32 @@ let value1 = "";
 let opp = "";
 let value2 = "";
 
-display();
-
-function display(){
 document.querySelectorAll(".number").forEach((button) => {
   button.addEventListener("click", (event) => {
     const number = parseInt(event.target.getAttribute("data-value"));
     const display = document.querySelector(".js-display");
 
-    if(opp===""){
+    if (opp === "") {
       value1 += number;
       display.value = value1;
-    }
-    else{
+    } else {
       value2 += number;
-      display.value = value2;
+      display.value = `${value1} ${opp} ${value2}`
     }
-
-
-
-    display.value += number;
-  });
+  })
 });
 
 document.querySelectorAll(".operator").forEach((button) => {
   button.addEventListener("click", (event) => {
-    const opp = event.target.getAttribute("data-value");
+     const display = document.querySelector(".js-display");
+     opp = event.target.getAttribute("data-value");
+     display.value = `${value1} ${opp}`
+
   });
 });
 
 document.querySelector(".equal").addEventListener("click", () => {
+  const display = document.querySelector(".js-display");
   let result;
   switch (opp) {
     case "+":
@@ -47,17 +43,11 @@ document.querySelector(".equal").addEventListener("click", () => {
       result = divide(parseFloat(value1), parseFloat(value2));
       break;
   }
+  display.value = ``
 
-  
-  
+
   
 });
-
-}
-
-
-
-
 
 function add(value1, value2) {
   return value1 + value2;
