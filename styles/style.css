@@ -13,9 +13,11 @@ button {
   border: 1px solid gray;
   
 }
-.signs{
+.opp{
   background-color: black;
+  color: blue;
+  font-size: 20px;
 }
-.cancel{
+.clear{
   background-color: orangered;
 }

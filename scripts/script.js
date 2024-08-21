@@ -43,10 +43,16 @@ document.querySelector(".equal").addEventListener("click", () => {
       result = divide(parseFloat(value1), parseFloat(value2));
       break;
   }
-  display.value = ``
+  display.value = `${value1} ${opp} ${value2} = ${result} `
+})
 
+  document.querySelector(".clear").addEventListener("click", () => {
+    const display = document.querySelector(".js-display");
+    display.value = ''
+    value1 = ''
+    value2 = ''
+    opp = ''
 
-  
 });
 
 function add(value1, value2) {
