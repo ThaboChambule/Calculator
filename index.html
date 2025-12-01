@@ -7,28 +7,55 @@
     <link rel="stylesheet" href="styles/style.css" />
   </head>
   <body>
-    <div class="Container">
-      <p><input class="input js-display" placeholder="0" /></p>
-      <button class="number" data-value="7">7</button>
-      <button class="number" data-value="8">8</button>
-      <button class="number" data-value="9">9</button>
-      <button class="operator opp" data-value="+">+</button>
-      <br />
-      <button class="number" data-value="4">4</button>
-      <button class="number" data-value="5">5</button>
-      <button class="number" data-value="6">6</button>
-      <button class="operator opp" data-value="-">-</button>
-      <br />
-      <button class="number" data-value="1" class="one">1</button>
-      <button class="number" data-value="2">2</button>
-      <button class="number" data-value="3">3</button>
-      <button class="operator opp" data-value="x">x</button>
-      <br />
-      <button class="clear">c</button>
-      <button class="number" data-value="0">0</button>
-      <button class="equal opp">=</button>
-      <button class="operator opp" data-value="÷">÷</button>
-    </div>
+    <!------use main instead of div---->
+    <main class="Container">
+       <input type="text" class="input js-display" value="0" readonly aria-label="Calculator display" aria-live="polite">0</input>
+
+
+      <form class="button-grid">   
+        
+           <!----This will be Row 1--------->
+      <button type="button"  class="clear" aria-label="Clear">c</button>
+      <button type="button"  class="operator" data-value="(" aria-label="Open Bracket">(</button>
+      <button type="button"  class="operator" data-value=")" aria-label="Close Bracket">)</button>
+      <button type="button"  class="operator opp" data-value="÷" aria-label="Divide">÷</button>
+        
+
+      <!----This will be Row 2--------->
+      <button type="button" class="operator" data-value="√" aria-label="Square Root">√</button>
+        <button type="button" class="operator" data-value="^" aria-label="Power">x²</button>
+        <button type="button" class="operator" data-value="π" aria-label="Pi">π</button>
+      <button type="button"  class="operator opp" data-value="x" aria-label="Multiply">x</button>
+      
+    
+       <!----This will be Row 3--------->
+      <button type="button" class="number" data-value="7">7</button>
+      <button type="button"  class="number" data-value="8">8</button>
+      <button type="button"  class="number" data-value="9">9</button>
+      <button type="button"  class="operator opp" data-value="-" aria-label="Subtract">-</button>
+      
+       <!----This will be Row 4--------->
+      <button type="button"  class="number" data-value="4">4</button>
+      <button type="button"  class="number" data-value="5">5</button>
+      <button type="button"  class="number" data-value="6">6</button>
+      <button type="button"  class="operator opp" data-value="+" aria-label="Add">+</button>
+      
+
+       <!----This will be Row 5--------->
+       <button type="button"  class="number" data-value="1">1</button>
+      <button type="button"  class="number" data-value="2">2</button>
+      <button type="button"  class="number" data-value="3">3</button>
+      <button type="button" class="operator" data-value="%" arial-label="Percentage">%</button>
+      
+
+      
+      <!------This will be row 6---------->
+      <button type="button"  class="number zero" data-value="0">0</button>
+      <button type="button" class="number" data-value="." arial-label="Decimal">.</button>
+      <button type="button"  class="equal opp" aria-label="Equal">=</button>
+      </form>
+
+    </main>
 
     <script src="scripts/script.js"></script>
   </body>
