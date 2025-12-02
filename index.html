@@ -8,56 +8,60 @@
   </head>
   <body>
     <main class="Container">
-      <input type="text" class="input js-display" value="0" readonly aria-label="Calculator display" aria-live="polite" />
+      <input 
+        type="text" 
+        class="input js-display" 
+        value="0" 
+        readonly 
+        aria-label="Calculator display" 
+        aria-live="polite" 
+      />
 
-      <form class="button-grid">  
+      <section class="button-grid" aria-label="Calculator Keypad">  
         
-         <!-- Row 6 (Extras) -->
-        <button type="button" class="operator" data-value="√">√</button>
-        <button type="button" class="operator" data-value="^">x²</button>
-        <button type="button" class="operator" data-value="π">π</button>
-        <!-- We have 2 empty slots here. We can make the bottom buttons wider or add e and 1/x -->
-        <button type="button" class="operator" data-value="e">e</button>
-        <button type="button" class="operator" data-value="inv">1/x</button>
+         <!-- Row 1: Advanced Math -->
+        <button class="operator" data-value="√" aria-label="Square Root">√</button>
+        <button class="operator" data-value="^" aria-label="Power">x²</button>
+        <button class="operator" data-value="π" aria-label="Pi">π</button>
+        <button class="operator" data-value="e" aria-label="Euler's Number">e</button>
+        <button class="operator" data-value="inv" aria-label="Inverse">1/x</button>
         
-        <!-- Row 1 -->
-        <button type="button" class="operator" data-value="(">(</button>
-        <button type="button" class="operator" data-value=")">)</button>
-        <button type="button" class="operator" data-value="%">%</button>
-        <button type="button" class="clear">C</button>
-        <button type="button" class="operator opp" data-value="÷">÷</button>
+        <!-- Row 2: Basic Functions -->
+        <button class="operator" data-value="(" aria-label="Open Bracket">(</button>
+        <button class="operator" data-value=")" aria-label="Close Bracket">)</button>
+        <button class="operator" data-value="%" aria-label="Percentage">%</button>
+        <button class="clear" aria-label="Clear">C</button>
+        <button class="operator opp" data-value="÷" aria-label="Divide">÷</button>
         
-        <!-- Row 2 -->
-        <button type="button" class="operator" data-value="sin">sin</button>
-        <button type="button" class="number" data-value="7">7</button>
-        <button type="button" class="number" data-value="8">8</button>
-        <button type="button" class="number" data-value="9">9</button>
-        <button type="button" class="operator opp" data-value="x">×</button>
+        <!-- Row 3: Trig & Numbers -->
+        <button class="operator" data-value="sin">sin</button>
+        <button class="number" data-value="7">7</button>
+        <button class="number" data-value="8">8</button>
+        <button class="number" data-value="9">9</button>
+        <button class="operator opp" data-value="x" aria-label="Multiply">×</button>
 
-        <!-- Row 3 -->
-        <button type="button" class="operator" data-value="cos">cos</button>
-        <button type="button" class="number" data-value="4">4</button>
-        <button type="button" class="number" data-value="5">5</button>
-        <button type="button" class="number" data-value="6">6</button>
-        <button type="button" class="operator opp" data-value="-">-</button>
+        <!-- Row 4: Trig & Numbers -->
+        <button class="operator" data-value="cos">cos</button>
+        <button class="number" data-value="4">4</button>
+        <button class="number" data-value="5">5</button>
+        <button class="number" data-value="6">6</button>
+        <button class="operator opp" data-value="-" aria-label="Subtract">-</button>
       
-        <!-- Row 4 -->
-        <button type="button" class="operator" data-value="tan">tan</button>
-        <button type="button" class="number" data-value="1">1</button>
-        <button type="button" class="number" data-value="2">2</button>
-        <button type="button" class="number" data-value="3">3</button>
-        <button type="button" class="operator opp" data-value="+">+</button>
+        <!-- Row 5: Trig & Numbers -->
+        <button class="operator" data-value="tan">tan</button>
+        <button class="number" data-value="1">1</button>
+        <button class="number" data-value="2">2</button>
+        <button class="number" data-value="3">3</button>
+        <button class="operator opp" data-value="+" aria-label="Add">+</button>
       
-        <!-- Row 5 -->
-        <button type="button" class="operator" data-value="log">log</button>
-        <button type="button" class="operator" data-value="ln">ln</button>
-        <button type="button" class="number" data-value="0">0</button>
-        <button type="button" class="number" data-value=".">.</button>
-        <button type="button" class="equal opp">=</button>
+        <!-- Row 6: Logs & Zero -->
+        <button class="operator" data-value="log">log</button>
+        <button class="operator" data-value="ln">ln</button>
+        <button class="number" data-value="0">0</button>
+        <button class="number" data-value="." aria-label="Decimal">.</button>
+        <button class="equal opp" aria-label="Equal">=</button>
         
-       
-      </form>
-
+      </section>
     </main>
 
     <script src="scripts/script.js"></script>
