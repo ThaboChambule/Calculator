@@ -18,7 +18,7 @@ body {
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  max-width: 420px;  /* Wider for 5 columns */
+  max-width: 420px; 
 }
 
 .input {
@@ -55,7 +55,7 @@ body {
 
 .button-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);  /* 5 columns instead of 4 */
+  grid-template-columns: repeat(5, 1fr); 
   gap: 8px;
   margin-top: 15px;
 }
@@ -103,7 +103,7 @@ button:active {
 }
 
 .zero {
-  grid-column: span 2;  /* 0 button spans 2 columns */
+  grid-column: span 2;  
 }
 
 .opp {
