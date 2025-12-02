@@ -8,14 +8,22 @@
   </head>
   <body>
     <main class="Container">
-      <input 
-        type="text" 
-        class="input js-display" 
-        value="0" 
-        readonly 
-        aria-label="Calculator display" 
-        aria-live="polite" 
-      />
+      
+      <!-- NEW: Display Container with Two Screens -->
+      <div class="display-container">
+        <!-- Top Screen: Shows the full expression (e.g. "5 + 3 x") -->
+        <div class="history js-history" aria-hidden="true"></div>
+        
+        <!-- Bottom Screen: Shows the result (e.g. "15") -->
+        <input 
+          type="text" 
+          class="input js-display" 
+          value="0" 
+          readonly 
+          aria-label="Calculator result" 
+          aria-live="polite" 
+        />
+      </div>
 
       <section class="button-grid" aria-label="Calculator Keypad">  
         
@@ -24,7 +32,9 @@
         <button class="operator" data-value="^" aria-label="Power">x²</button>
         <button class="operator" data-value="π" aria-label="Pi">π</button>
         <button class="operator" data-value="e" aria-label="Euler's Number">e</button>
-        <button class="operator" data-value="inv" aria-label="Inverse">1/x</button>
+        
+        <!-- REPLACED 1/x WITH DEL -->
+        <button class="operator" data-value="DEL" aria-label="Delete">DEL</button>
         
         <!-- Row 2: Basic Functions -->
         <button class="operator" data-value="(" aria-label="Open Bracket">(</button>

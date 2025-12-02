@@ -1,6 +1,7 @@
 // 1. State Variables
-let expression = ""; // Stores the math string like "5+5"
-const display = document.querySelector(".js-display");
+let expression = ""; 
+const display = document.querySelector(".js-display"); // Bottom screen (Result)
+const historyDisplay = document.querySelector(".js-history"); // Top screen (Expression)
 
 // 2. Add Event Listeners to ALL buttons
 document.querySelectorAll("button").forEach((button) => {
@@ -10,6 +11,12 @@ document.querySelectorAll("button").forEach((button) => {
     // Handle Clear
     if (button.classList.contains("clear")) {
       clearCalculator();
+      return;
+    }
+
+    // Handle Delete (NEW)
+    if (value === "DEL") {
+      deleteLastInput();
       return;
     }
 
@@ -35,6 +42,7 @@ document.querySelectorAll("button").forEach((button) => {
 
 // 3. Append Input to Expression
 function appendInput(value) {
+  // (Keep your existing validation logic here)
   const lastChar = expression.slice(-1);
   const isNumber = (char) => /[0-9]/.test(char);
   const isOperator = ["+", "-", "x", "÷", "^", "%"].includes(value);
@@ -54,7 +62,7 @@ function appendInput(value) {
   // C. Prevent double operators (replace the last one)
   if (isOperator && lastIsOperator) {
     expression = expression.slice(0, -1) + value;
-    updateDisplay(expression);
+    updateScreens(); // Changed from updateDisplay
     return;
   }
 
@@ -72,82 +80,123 @@ function appendInput(value) {
   }
 
   expression += value;
-  updateDisplay(expression);
+  updateScreens(); // Changed from updateDisplay
 }
 
-// 4. Update Display
-function updateDisplay(text) {
-  // If empty, show 0. If error, show Error.
-  display.value = text || "0";
-  // Auto-scroll to the end of long numbers
-  display.scrollLeft = display.scrollWidth;
+// 4. NEW: Update Both Screens
+function updateScreens() {
+  // Top Screen: Shows the full expression
+  historyDisplay.textContent = expression;
+  
+  // Bottom Screen: Shows Live Preview
+  // Only calculate if the expression is valid and has numbers
+  if (expression && !isOperator(expression.slice(-1))) {
+    calculatePreview();
+  } else if (expression === "") {
+    display.value = "0";
+  }
+}
+
+function isOperator(char) {
+  return ["+", "-", "x", "÷", "^", "%", "("].includes(char);
 }
 
 // 5. Clear Calculator
 function clearCalculator() {
   expression = "";
-  updateDisplay("0");
+  historyDisplay.textContent = "";
+  display.value = "0";
 }
 
-// 6. Handle Scientific Math (Immediate Calculation)
+// NEW: Delete Last Input
+function deleteLastInput() {
+  if (expression === "") return;
+  expression = expression.slice(0, -1);
+  updateScreens();
+}
+
+// 6. Handle Scientific Math
 function handleScientific(func) {
-  // First, calculate any pending expression (e.g. "5+5" -> 10)
-  calculateResult(); 
+  // Calculate current expression first to get a single number
+  calculateResult(true); // Pass true to indicate "internal calculation"
   
-  // Get the current result as a number
   let currentVal = parseFloat(expression) || 0;
   let result = 0;
 
   switch (func) {
-    case "sin": result = Math.sin(currentVal * Math.PI / 180); break; // Degrees
+    case "sin": result = Math.sin(currentVal * Math.PI / 180); break;
     case "cos": result = Math.cos(currentVal * Math.PI / 180); break;
     case "tan": result = Math.tan(currentVal * Math.PI / 180); break;
     case "log": result = Math.log10(currentVal); break;
     case "ln":  result = Math.log(currentVal); break;
     case "√":   
-      if(currentVal < 0) { updateDisplay("Error"); expression=""; return; }
+      if(currentVal < 0) { display.value = "Error"; expression=""; return; }
       result = Math.sqrt(currentVal); 
       break;
     case "inv": result = 1 / currentVal; break;
   }
 
-  // Limit decimals to prevent huge numbers
   result = parseFloat(result.toFixed(8));
-  
   expression = result.toString();
-  updateDisplay(expression);
+  
+  // Update screens after scientific op
+  historyDisplay.textContent = func + "(" + currentVal + ")";
+  display.value = expression;
 }
 
-// 7. Calculate Result (The Engine)
-function calculateResult() {
+// NEW: Calculate Preview (Live Result while typing)
+function calculatePreview() {
+  try {
+    let mathString = sanitizeExpression(expression);
+    const safeMath = new Function('return ' + mathString);
+    const result = safeMath();
+    
+    if (isFinite(result) && !isNaN(result)) {
+      const finalResult = Math.round(result * 1000000000) / 1000000000;
+      display.value = finalResult.toString();
+    }
+  } catch (error) {
+    // Don't show error on preview, just ignore
+  }
+}
+
+// 7. Calculate Result (Final Equals)
+function calculateResult(isInternal = false) {
   if (!expression) return;
 
   try {
-    // Step A: Sanitize the string for JavaScript
-    let mathString = expression
-      .replace(/x/g, "*")
-      .replace(/÷/g, "/")
-      .replace(/\^/g, "**")     // Power operator
-      .replace(/%/g, "/100")    // Percentage
-      .replace(/π/g, Math.PI)   // Pi
-      .replace(/e/g, Math.E);   // Euler's number
-
-    // Step B: Safe Calculation using Function constructor
+    let mathString = sanitizeExpression(expression);
     const safeMath = new Function('return ' + mathString);
     const result = safeMath();
 
     if (!isFinite(result) || isNaN(result)) {
-      updateDisplay("Error");
+      display.value = "Error";
       expression = "";
     } else {
-      // Fix floating point precision (e.g. 0.1 + 0.2)
       const finalResult = Math.round(result * 1000000000) / 1000000000;
+      
+      if (!isInternal) {
+        // If user pressed =, show "Expression =" on top
+        historyDisplay.textContent = expression + " =";
+      }
+      
       expression = finalResult.toString();
-      updateDisplay(expression);
+      display.value = expression;
     }
   } catch (error) {
-    updateDisplay("Error");
+    display.value = "Error";
     expression = "";
   }
+}
+
+// Helper to clean string
+function sanitizeExpression(expr) {
+  return expr
+    .replace(/x/g, "*")
+    .replace(/÷/g, "/")
+    .replace(/\^/g, "**")
+    .replace(/%/g, "/100")
+    .replace(/π/g, Math.PI)
+    .replace(/e/g, Math.E);
 }
 
