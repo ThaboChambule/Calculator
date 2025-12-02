@@ -21,7 +21,7 @@ body {
   max-width: 420px; 
 }
 
-/* NEW: Container for both displays */
+/* This is the Container for both displays */
 .display-container {
   background-color: #1c1c1c;
   border-radius: 8px;
@@ -33,12 +33,12 @@ body {
   justify-content: flex-end;
 }
 
-/* NEW: Top History Screen */
+/* This is for the top screen */
 .history {
   width: 100%;
   min-height: 24px;
   font-size: 18px;
-  color: #888; /* Gray color for history */
+  color: #888;
   text-align: right;
   font-family: 'Courier New', monospace;
   overflow: hidden;
@@ -49,16 +49,16 @@ body {
 
 .input {
   width: 100%;
-  padding: 0; /* Remove padding since container has it */
+  padding: 0; 
   font-size: 36px;
   text-align: right;
-  background-color: transparent; /* Transparent to blend with container */
+  background-color: transparent;
   color: #fff;
   border: none;
-  margin-bottom: 0; /* Remove margin */
+  margin-bottom: 0; 
   font-family: 'Courier New', monospace;
   letter-spacing: 2px;
-  box-shadow: none; /* Remove shadow from input */
+  box-shadow: none;
 }
 
 
